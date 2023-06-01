@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'app:create-user',
@@ -20,10 +21,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class CreateUserCommand extends Command
 {
     private $em;
-    public function __construct(EntityManagerInterface $em)
+    private $passwordHasher;
+    public function __construct(EntityManagerInterface $em,UserPasswordHasherInterface $passwordHasher)
     {
         parent::__construct();
         $this->em = $em;
+        $this->passwordHasher = $passwordHasher;
     }
     protected function configure(): void
     {
@@ -57,7 +60,7 @@ class CreateUserCommand extends Command
         return Command::SUCCESS;
     }
     private function createUser(User $user){
-        $user->setPassword("123");
+        $user->setPassword($this->passwordHasher->hashPassword($user,"123"));
         $user->setRoles(["ROLE_USER"]);
         $user->setStatus(true);
         $this->em->persist($user);
