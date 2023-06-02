@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-2">
+                    <h1>Menu Categories</h1>
+                    <a class="btn btn-primary justify-content-end" href="{{ path('admin_menu_add') }}">Create new</a>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for menuCategory in pagination %}
+                        <tr>
+                            <td>{{ menuCategory.id }}</td>
+                            <td>{{ menuCategory.name }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('admin_menu_edit', { 'id': menuCategory.id }) }}">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('admin_menu_delete', { 'id': menuCategory.id }) }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

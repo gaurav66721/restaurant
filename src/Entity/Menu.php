@@ -18,7 +18,7 @@ class Menu
     #[ORM\Column(length: 150)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'menu_id', targetEntity: MenuItem::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'menu', targetEntity: MenuItem::class, orphanRemoval: true)]
     private Collection $menuItems;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Menu
     {
         if (!$this->menuItems->contains($menuItem)) {
             $this->menuItems->add($menuItem);
-            $menuItem->setMenuId($this);
+            $menuItem->setMenu($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Menu
     {
         if ($this->menuItems->removeElement($menuItem)) {
             // set the owning side to null (unless already changed)
-            if ($menuItem->getMenuId() === $this) {
-                $menuItem->setMenuId(null);
+            if ($menuItem->getMenu() === $this) {
+                $menuItem->setMenu(null);
             }
         }
 

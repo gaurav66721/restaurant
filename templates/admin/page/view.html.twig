@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Page</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <td>{{ page.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ page.title }}</td>
+                </tr>
+                <tr>
+                    <th>Content</th>
+                    <td>{{ page.content }}</td>
+                </tr>
+                {% if page.featuredImage %}
+                <tr>
+                    <th>Image</th>
+                    <td>{{ page.featuredImage }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>Url</th>
+                    <td><a href="{{base_url ~"page/"~page.slug }}">{{base_url ~"page/" ~page.slug }}</a></td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ page.status==true?"Active":"In-Active" }}</td>
+                </tr>
+                <tr>
+                    <th>Action</th>
+                    <td>
+                        <a href="{{path('admin_page_edit',{id:page.id}) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{path('admin_page_delete',{id:page.id})}}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

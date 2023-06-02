@@ -20,13 +20,12 @@ class MenuItem
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $recipes = null;
 
-    #[ORM\Column(name:'menu_id')]
-    #[ORM\ManyToOne(inversedBy: 'menuItems')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Menu $menu_id = null;
-
     #[ORM\Column]
     private ?bool $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'menuItems')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Menu $menu = null;
 
     public function getId(): ?int
     {
@@ -57,18 +56,6 @@ class MenuItem
         return $this;
     }
 
-    public function getMenuId(): ?Menu
-    {
-        return $this->menu_id;
-    }
-
-    public function setMenuId(?Menu $menu_id): self
-    {
-        $this->menu_id = $menu_id;
-
-        return $this;
-    }
-
     public function isStatus(): ?bool
     {
         return $this->status;
@@ -77,6 +64,18 @@ class MenuItem
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getMenu(): ?Menu
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(?Menu $menu): self
+    {
+        $this->menu = $menu;
 
         return $this;
     }

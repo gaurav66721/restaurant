@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Booking Table List</h1>
+                <a href="{{ path('admin_booking_table_add') }}" class="btn btn-primary">Create</a>
+                <table class="table table-bordered">
+                    <tr>
+                       <th>Id</th>
+                       <th>Table Name</th>
+                       <th>Action</th>
+                    </tr>
+                    {% for booking in pagination %}
+                        <tr>
+                           <td>{{ booking.id }}</td>
+                           <td>{{ booking.tableName }}</td>
+                           <td>
+                               <a class="btn btn-primary" href="{{ path('admin_booking_table_edit',{id:booking.id}) }}">Edit</a>
+                               <a class="btn btn-danger" href="{{ path('admin_booking_table_delete',{id:booking.id}) }}">Delete</a>
+                           </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
