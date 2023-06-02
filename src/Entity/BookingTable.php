@@ -18,7 +18,7 @@ class BookingTable
     #[ORM\Column(length: 150)]
     private ?string $table_name = null;
 
-    #[ORM\OneToMany(mappedBy: 'booking_table_id', targetEntity: BookingOrder::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'bookingTable', targetEntity: BookingOrder::class, orphanRemoval: true)]
     private Collection $bookingOrders;
 
     public function __construct()

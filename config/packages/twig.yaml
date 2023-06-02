@@ -1,4 +1,7 @@
 twig:
+    globals:
+        page_upload_dir: '/uploads/pages/'
+        base_url: '%env(resolve:BASE_URL)%'
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_5_layout.html.twig']
 

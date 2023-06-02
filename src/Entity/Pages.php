@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PagesRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Pages
 {
     #[ORM\Id]
@@ -107,5 +108,10 @@ class Pages
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new \DateTime();
     }
 }
