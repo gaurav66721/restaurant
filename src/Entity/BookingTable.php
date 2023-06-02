@@ -18,7 +18,7 @@ class BookingTable
     #[ORM\Column(length: 150)]
     private ?string $table_name = null;
 
-    #[ORM\OneToMany(mappedBy: 'bookingTable', targetEntity: BookingOrder::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'booking_table', targetEntity: BookingOrder::class, orphanRemoval: true)]
     private Collection $bookingOrders;
 
     public function __construct()
@@ -55,7 +55,7 @@ class BookingTable
     {
         if (!$this->bookingOrders->contains($bookingOrder)) {
             $this->bookingOrders->add($bookingOrder);
-            $bookingOrder->setBookingTableId($this);
+            $bookingOrder->setBookingTable($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class BookingTable
     {
         if ($this->bookingOrders->removeElement($bookingOrder)) {
             // set the owning side to null (unless already changed)
-            if ($bookingOrder->getBookingTableId() === $this) {
-                $bookingOrder->setBookingTableId(null);
+            if ($bookingOrder->getBookingTable() === $this) {
+                $bookingOrder->setBookingTable(null);
             }
         }
 

@@ -69,7 +69,6 @@ class BookingTableController extends AbstractController
     public function delete(BookingTable $bookingTable,EntityManagerInterface $em):RedirectResponse
     {
         //delete booking table
-//        dd($bookingTable);
         $em->remove($bookingTable);
         $em->flush();
         //set flash message

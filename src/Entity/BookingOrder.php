@@ -28,10 +28,9 @@ class BookingOrder
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(name:'booking_table_id')]
     #[ORM\ManyToOne(inversedBy: 'bookingOrders')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?BookingTable $bookingTable = null;
+    private ?BookingTable $booking_table = null;
 
     public function getId(): ?int
     {
@@ -86,14 +85,14 @@ class BookingOrder
         return $this;
     }
 
-    public function getBookingTableId(): ?BookingTable
+    public function getBookingTable(): ?BookingTable
     {
-        return $this->bookingTable;
+        return $this->booking_table;
     }
 
-    public function setBookingTableId(?BookingTable $bookingTable): self
+    public function setBookingTable(?BookingTable $booking_table): self
     {
-        $this->bookingTable = $bookingTable;
+        $this->booking_table = $booking_table;
 
         return $this;
     }
