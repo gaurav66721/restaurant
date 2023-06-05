@@ -21,3 +21,9 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% set id = "page_form_content" %}
+    {% include "common/ckeditor.html.twig" %}
+{% endblock %}
+

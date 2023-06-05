@@ -14,3 +14,8 @@
 
 
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% set id = "menu_item_form_recipes" %}
+    {% include "common/ckeditor.html.twig" %}
+{% endblock %}
