@@ -18,7 +18,10 @@ class BookingTable
     #[ORM\Column(length: 150)]
     private ?string $table_name = null;
 
-    #[ORM\OneToMany(mappedBy: 'booking_table', targetEntity: BookingOrder::class, orphanRemoval: true)]
+    #[ORM\Column]
+    private ?int $capacity = null;
+
+    #[ORM\OneToMany(mappedBy: 'bookingTable', targetEntity: BookingOrder::class)]
     private Collection $bookingOrders;
 
     public function __construct()
@@ -39,6 +42,18 @@ class BookingTable
     public function setTableName(string $table_name): self
     {
         $this->table_name = $table_name;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): self
+    {
+        $this->capacity = $capacity;
 
         return $this;
     }

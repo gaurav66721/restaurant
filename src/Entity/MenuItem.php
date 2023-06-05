@@ -27,6 +27,12 @@ class MenuItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Menu $menu = null;
 
+    #[ORM\Column]
+    private ?float $price_1 = null;
+
+    #[ORM\Column]
+    private ?float $price_2 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +82,30 @@ class MenuItem
     public function setMenu(?Menu $menu): self
     {
         $this->menu = $menu;
+
+        return $this;
+    }
+
+    public function getPrice1(): ?float
+    {
+        return $this->price_1;
+    }
+
+    public function setPrice1(float $price_1): self
+    {
+        $this->price_1 = $price_1;
+
+        return $this;
+    }
+
+    public function getPrice2(): ?float
+    {
+        return $this->price_2;
+    }
+
+    public function setPrice2(float $price_2): self
+    {
+        $this->price_2 = $price_2;
 
         return $this;
     }

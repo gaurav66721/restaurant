@@ -32,6 +32,24 @@ class BookingOrder
     #[ORM\JoinColumn(nullable: false)]
     private ?BookingTable $booking_table = null;
 
+    #[ORM\ManyToOne(inversedBy: 'bookingOrders')]
+    private ?BookingTable $bookingTable = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $customer_name = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 15)]
+    private ?string $phone = null;
+
+    #[ORM\Column]
+    private ?int $persons = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $notes = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +111,66 @@ class BookingOrder
     public function setBookingTable(?BookingTable $booking_table): self
     {
         $this->booking_table = $booking_table;
+
+        return $this;
+    }
+
+    public function getCustomerName(): ?string
+    {
+        return $this->customer_name;
+    }
+
+    public function setCustomerName(string $customer_name): self
+    {
+        $this->customer_name = $customer_name;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPersons(): ?int
+    {
+        return $this->persons;
+    }
+
+    public function setPersons(int $persons): self
+    {
+        $this->persons = $persons;
+
+        return $this;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): self
+    {
+        $this->notes = $notes;
 
         return $this;
     }
