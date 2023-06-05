@@ -61,7 +61,7 @@ class CreateUserCommand extends Command
     }
     private function createUser(User $user){
         $user->setPassword($this->passwordHasher->hashPassword($user,"123"));
-        $user->setRoles(["ROLE_USER"]);
+        $user->setRoles(["ROLE_USER","ROLE_ADMIN"]);
         $user->setStatus(true);
         $this->em->persist($user);
         $this->em->flush();
