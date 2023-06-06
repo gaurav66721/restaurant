@@ -13,6 +13,7 @@ class BookingTableFormType extends AbstractType
     {
         $builder
             ->add('table_name')
+            ->add('capacity')
         ;
     }
 

@@ -19,6 +19,8 @@ class MenuItemFormType extends AbstractType
                 ],
             ])
             ->add('recipes')
+            ->add('price1')
+            ->add('price2')
             ->add('status')
             ->add('menu','Symfony\Bridge\Doctrine\Form\Type\EntityType',[
                 'class' => 'App\Entity\Menu',

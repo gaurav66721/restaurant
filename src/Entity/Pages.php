@@ -35,15 +35,6 @@ class Pages
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: "pages", targetEntity: "App\Entity\Gallery")]
-
-    private $galleryImages;
-
-    public function __construct()
-    {
-        $this->galleryImages = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -124,35 +115,5 @@ class Pages
     public function onPrePersist(): void
     {
         $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getGalleryImages(): Collection
-    {
-        return $this->galleryImages;
-    }
-
-    public function addGalleryImage(Gallery $galleryImage): self
-    {
-        if (!$this->galleryImages->contains($galleryImage)) {
-            $this->galleryImages[] = $galleryImage;
-            $galleryImage->setPage($this);
-        }
-
-        return $this;
-    }
-    public function removeGalleryImage(Gallery $galleryImage): self
-    {
-        if ($this->galleryImages->contains($galleryImage)) {
-            $this->galleryImages->removeElement($galleryImage);
-            // set the owning side to null (unless already changed)
-            if ($galleryImage->getPage() === $this) {
-                $galleryImage->setPage(null);
-            }
-        }
-
-        return $this;
     }
 }

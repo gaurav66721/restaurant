@@ -9,12 +9,14 @@
                     <tr>
                        <th>Id</th>
                        <th>Table Name</th>
+                       <th>Capacity</th>
                        <th>Action</th>
                     </tr>
                     {% for booking in pagination %}
                         <tr>
                            <td>{{ booking.id }}</td>
                            <td>{{ booking.tableName }}</td>
+                           <td>{{ booking.capacity }}</td>
                            <td>
                                <a class="btn btn-primary" href="{{ path('admin_booking_table_edit',{id:booking.id}) }}">Edit</a>
                                <a class="btn btn-danger" href="{{ path('admin_booking_table_delete',{id:booking.id}) }}">Delete</a>

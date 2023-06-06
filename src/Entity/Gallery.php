@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GalleryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Gallery
 {
     #[ORM\Id]
@@ -20,21 +21,8 @@ class Gallery
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column]
-    private ?int $type_id = null;
-
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Services", inversedBy: "galleryImages")]
-    #[ORM\JoinColumn(name: "type_id", referencedColumnName: 'id')]
-
-    private $service;
-
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Pages", inversedBy: "galleryImages")]
-    #[ORM\JoinColumn(name: "type_id", referencedColumnName: 'id')]
-
-    private $pages;
-
-    #[ORM\Column(length: 150)]
-    private ?string $type = null;
+    #[ORM\ManyToOne(inversedBy: 'galleries')]
+    private ?Services $service = null;
 
     /**
      * @return int|null
@@ -76,18 +64,6 @@ class Gallery
         return $this;
     }
 
-    public function getTypeId(): ?int
-    {
-        return $this->type_id;
-    }
-
-    public function setTypeId(int $type_id): self
-    {
-        $this->type_id = $type_id;
-
-        return $this;
-    }
-
     public function getService(): ?Services
     {
         return $this->service;
@@ -99,29 +75,10 @@ class Gallery
 
         return $this;
     }
-    public function getPage(): ?Pages
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
     {
-        return $this->pages;
+        $this->createdAt = new \DateTime();
     }
-
-    public function setPage(?Pages $page): self
-    {
-        $this->pages = $page;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
 
 }

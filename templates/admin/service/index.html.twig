@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Services</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <a class="btn btn-primary" href="{{ path('admin_service_add') }}">Add Services</a>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Content</th>
+                        <th>Featured Image</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for service in pagination %}
+                        <tr>
+                            <td>{{ service.id }}</td>
+                            <td>{{ service.title }}</td>
+                            <td>{{ service.slug }}</td>
+                            <td>{{ service.content }}</td>
+                            <td>{{ service.featuredImage }}</td>
+                            <td>{{ service.price }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('admin_service_edit', {'id': service.id}) }}">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('admin_service_delete', {'id': service.id}) }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

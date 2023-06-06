@@ -31,14 +31,14 @@ class Services
     #[ORM\Column]
     private ?float $price = null;
 
-
-     #[ORM\OneToMany(mappedBy: 'service', targetEntity: 'App\Entity\Gallery')]
-    private $galleryImages;
+    #[ORM\OneToMany(mappedBy: 'service', targetEntity: Gallery::class,cascade: ['persist', 'remove'])]
+    private Collection $galleries;
 
     public function __construct()
     {
-        $this->galleryImages = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -104,30 +104,31 @@ class Services
 
         return $this;
     }
+
     /**
-     * @return Collection
+     * @return Collection<int, Gallery>
      */
-    public function getGalleryImages(): Collection
+    public function getGalleries(): Collection
     {
-        return $this->galleryImages;
+        return $this->galleries;
     }
-    public function addGalleryImage(Gallery $galleryImage): self
+
+    public function addGallery(Gallery $gallery): self
     {
-        if (!$this->galleryImages->contains($galleryImage)) {
-            $this->galleryImages[] = $galleryImage;
-            $galleryImage->setService($this);
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries->add($gallery);
+            $gallery->setService($this);
         }
 
         return $this;
     }
 
-    public function removeGalleryImage(Gallery $galleryImage): self
+    public function removeGallery(Gallery $gallery): self
     {
-        if ($this->galleryImages->contains($galleryImage)) {
-            $this->galleryImages->removeElement($galleryImage);
+        if ($this->galleries->removeElement($gallery)) {
             // set the owning side to null (unless already changed)
-            if ($galleryImage->getService() === $this) {
-                $galleryImage->setService(null);
+            if ($gallery->getService() === $this) {
+                $gallery->setService(null);
             }
         }
 
